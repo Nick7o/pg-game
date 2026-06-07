@@ -1,39 +1,77 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController2D : MonoBehaviour
 {
+    private const string WalkTrigger = "Walk";
+    private const string IdleTrigger = "Idle";
+    
+    [FormerlySerializedAs("moveSpeed")]
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 4f;
+    [SerializeField] private float _moveSpeed = 4f;
+    
+    [Header("Animation")]
+    [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private float _walkAnimationSpeedThreshold = 0.01f;
 
-    private Rigidbody2D rb;
-    private Vector2 moveInput;
-    private Vector2 lastMoveDirection = Vector2.down;
+    private Rigidbody2D _rb;
+    private Vector2 _moveInput;
+    private Vector2 _lastMoveDirection = Vector2.down;
+    private bool _isWalking;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
+
+        if (_animator == null)
+            _animator = GetComponentInChildren<Animator>();
+
+        if (_spriteRenderer == null)
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        _moveInput = value.Get<Vector2>();
 
-        if (moveInput.sqrMagnitude > 0.01f)
+        if (_moveInput.sqrMagnitude > 0.01f)
         {
-            lastMoveDirection = moveInput.normalized;
+            _lastMoveDirection = _moveInput.normalized;
+            UpdateSpriteDirection(_lastMoveDirection);
         }
     }
 
     private void FixedUpdate()
     {
-        Vector2 movement = moveInput.normalized * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + movement);
+        Vector2 movement = _moveInput.normalized * _moveSpeed * Time.fixedDeltaTime;
+        _rb.MovePosition(_rb.position + movement);
+
+        float currentSpeed = movement.magnitude / Time.fixedDeltaTime;
+        UpdateAnimationState(currentSpeed);
     }
 
-    public Vector2 GetLastMoveDirection()
+    private void UpdateAnimationState(float currentSpeed)
     {
-        return lastMoveDirection;
+        if (_animator == null)
+            return;
+
+        bool isWalking = currentSpeed > _walkAnimationSpeedThreshold;
+        if (isWalking == _isWalking)
+            return;
+
+        _isWalking = isWalking;
+        _animator.ResetTrigger(_isWalking ? IdleTrigger : WalkTrigger);
+        _animator.SetTrigger(_isWalking ? WalkTrigger : IdleTrigger);
+    }
+
+    private void UpdateSpriteDirection(Vector2 moveDirection)
+    {
+        if (_spriteRenderer == null || Mathf.Approximately(moveDirection.x, 0f))
+            return;
+
+        _spriteRenderer.flipX = moveDirection.x < 0f;
     }
 }

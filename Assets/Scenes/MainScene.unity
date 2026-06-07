@@ -2110,6 +2110,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 719194202428422285, guid: df707422798963b4f827001d1015e749, type: 3}
   m_PrefabInstance: {fileID: 334117920}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &335188810 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8490194752087792694, guid: 9d594ecd4b9043f499ec301ae4d52d4d, type: 3}
+  m_PrefabInstance: {fileID: 3790576585930240835}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &341323501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,12 +2292,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345066255}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.72, y: -8.93, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 335188810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &345066259
 MonoBehaviour:
@@ -92326,7 +92331,7 @@ TilemapRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133923179}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -100888,7 +100893,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8490194752087792694, guid: 9d594ecd4b9043f499ec301ae4d52d4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 345066258}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d594ecd4b9043f499ec301ae4d52d4d, type: 3}
 --- !u!1001 &6385052980506644587
@@ -101066,7 +101074,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 345066258}
   - {fileID: 302106323}
   - {fileID: 551435118}
   - {fileID: 3790576585930240835}
