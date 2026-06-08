@@ -17,6 +17,9 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _walkAnimationSpeedThreshold = 0.01f;
 
+    [Header("Other")]
+    [SerializeField] private bool _reverseSpriteFlipDirection = false;
+
     private Rigidbody2D _rb;
     private Vector2 _moveInput;
     private Vector2 _lastMoveDirection = Vector2.down;
@@ -72,6 +75,6 @@ public class PlayerController2D : MonoBehaviour
         if (_spriteRenderer == null || Mathf.Approximately(moveDirection.x, 0f))
             return;
 
-        _spriteRenderer.flipX = moveDirection.x < 0f;
+        _spriteRenderer.flipX = (moveDirection.x < 0f) != _reverseSpriteFlipDirection;
     }
 }
