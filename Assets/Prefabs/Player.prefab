@@ -164,6 +164,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 642f63415a86ffb4e900fe35a8f1abe7, type: 2}
   - {fileID: 11400000, guid: 24e71e415733c9a4882fbbc5c9167130, type: 2}
   myMaps: []
+  dirtDigSound: {fileID: 0}
+  treasureHitSound: {fileID: 0}
+  anim: {fileID: 1021467329227053528}
 --- !u!114 &6204474903261914665
 MonoBehaviour:
   m_ObjectHideFlags: 0

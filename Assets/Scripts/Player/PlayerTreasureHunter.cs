@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,8 +12,18 @@ public class PlayerTreasureHunter : MonoBehaviour
     [HideInInspector]
     public List<ActiveTreasureMap> myMaps = new List<ActiveTreasureMap>();
 
+    [Header("Animacje i Dźwięki")]
+    public AudioClip dirtDigSound;      
+    public AudioClip treasureHitSound;
+
+    [SerializeField]
+    private Animator anim;
+    private AudioSource audioSource;    
+    private bool Digging = false;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         // Generujemy mapy - skrypt sam znajdzie odpowiednie kafelki wysp
         foreach (var island in startingIslands)
         {
@@ -22,10 +33,25 @@ public class PlayerTreasureHunter : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (!Digging && Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            TryDigTreasure();
+            StartCoroutine(DiggingRoutine());
         }
+    }
+
+    private IEnumerator DiggingRoutine()
+    {
+        Digging = true;
+        anim.SetBool("Digging", true);
+        
+        yield return new WaitForSeconds(0.5f);
+
+        TryDigTreasure();
+
+        yield return new WaitForSeconds(0.5f);
+
+        Digging = false;
+        anim.SetBool("Digging", false);
     }
 
     private void TryDigTreasure()
@@ -48,6 +74,19 @@ public class PlayerTreasureHunter : MonoBehaviour
 
                 if (playerCell == currentMap.treasureTilePosition)
                 {
+
+                    if (treasureHitSound != null)
+                    {
+                        audioSource.PlayOneShot(treasureHitSound);
+                    }
+
+                    int foundGold = Random.Range(10, 91); 
+                    
+                    if (GameManager.Instance != null)
+                    {
+                        GameManager.Instance.AddGold(foundGold);
+                    }
+
                     Debug.Log($"[Skarb] Znalazłeś skarb na wyspie {currentMap.island.islandGameObjectName}!");
                     
                     myMaps.RemoveAt(i);
@@ -59,6 +98,11 @@ public class PlayerTreasureHunter : MonoBehaviour
                     return;
                 }
             }
+        }
+
+        if (dirtDigSound != null)
+        {
+            audioSource.PlayOneShot(dirtDigSound);
         }
         Debug.Log("Kopiesz piach, ale nic tu nie ma...");
     }
