@@ -33,9 +33,11 @@ public class HangmanManager : MonoBehaviour
     private Color boughtLetterColor;
     private Color typedLetterColor;
     private Color coinBaseColor;
-    private Color coinCorrectColor;
-    private Color coinWrongColor;
     private Color wrongSignatureColor;
+
+    private Color gradCorrectLeft, gradCorrectRight;
+    private Color gradWrongLeft, gradWrongRight;
+    private Color vertexBaseColor; 
 
     private string currentGuess = "";
     private GameObject currentPlayer;
@@ -46,9 +48,13 @@ public class HangmanManager : MonoBehaviour
         ColorUtility.TryParseHtmlString("#A67B00", out boughtLetterColor);
         ColorUtility.TryParseHtmlString("#000000", out typedLetterColor);
         ColorUtility.TryParseHtmlString("#433A18", out coinBaseColor);
-        ColorUtility.TryParseHtmlString("#2B4318", out coinCorrectColor);
-        ColorUtility.TryParseHtmlString("#431818", out coinWrongColor);
         ColorUtility.TryParseHtmlString("#AE0000", out wrongSignatureColor);
+
+        ColorUtility.TryParseHtmlString("#17FF00", out gradCorrectLeft);  
+        ColorUtility.TryParseHtmlString("#FFCA00", out gradCorrectRight); 
+        ColorUtility.TryParseHtmlString("#FFCA00", out gradWrongLeft);    
+        ColorUtility.TryParseHtmlString("#FF1A00", out gradWrongRight);   
+        ColorUtility.TryParseHtmlString("#878787", out vertexBaseColor);  
     }
 
 
@@ -242,13 +248,13 @@ public class HangmanManager : MonoBehaviour
             if (GameManager.Instance.unlockedLetters.Contains(letter))
             {
                 bool isCorrect = GameManager.Instance.currentWord.Contains(letter.ToString());
-                letterText.color = isCorrect ? coinCorrectColor : coinWrongColor;
-                priceText.color = isCorrect ? coinCorrectColor : coinWrongColor;
+                ApplyCoinGradient(letterText, true, isCorrect);
+                ApplyCoinGradient(priceText, true, isCorrect);
             }
             else
             {
-                letterText.color = coinBaseColor;
-                priceText.color = coinBaseColor;
+                ApplyCoinGradient(letterText, false, false);
+                ApplyCoinGradient(priceText, false, false);
             }
 
             Button btn = coin.GetComponent<Button>();
@@ -285,8 +291,8 @@ public class HangmanManager : MonoBehaviour
 
             bool isCorrect = GameManager.Instance.currentWord.Contains(letter.ToString());
 
-            lText.color = isCorrect ? coinCorrectColor : coinWrongColor;
-            pText.color = isCorrect ? coinCorrectColor : coinWrongColor;
+            ApplyCoinGradient(lText, true, isCorrect);
+            ApplyCoinGradient(pText, true, isCorrect);
 
             UpdateBoardVisuals();
         }
@@ -370,7 +376,28 @@ public class HangmanManager : MonoBehaviour
             UpdateBoardVisuals();
         }
     }
+    private void ApplyCoinGradient(TMP_Text txt, bool isBought, bool isCorrect)
+    {
+        if (!isBought)
+        {
+            txt.enableVertexGradient = false;
+            txt.color = coinBaseColor;
+        }
+        else
+        {
+            txt.enableVertexGradient = true;
+            txt.color = vertexBaseColor;
 
+            if (isCorrect)
+            {
+                txt.colorGradient = new VertexGradient(gradCorrectLeft, gradCorrectRight, gradCorrectLeft, gradCorrectRight);
+            }
+            else
+            {
+                txt.colorGradient = new VertexGradient(gradWrongLeft, gradWrongRight, gradWrongLeft, gradWrongRight);
+            }
+        }
+    }
     void UpdateTimerUI()
     {
         float time = GameManager.Instance.timeRemaining;
