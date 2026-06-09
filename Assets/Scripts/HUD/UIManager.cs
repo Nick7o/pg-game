@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerTreasureHunter>();
+        player = FindAnyObjectByType<PlayerTreasureHunter>(FindObjectsInactive.Include);
         mapPanel.SetActive(false); 
     }
 
