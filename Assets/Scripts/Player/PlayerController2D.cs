@@ -11,6 +11,7 @@ public class PlayerController2D : MonoBehaviour
     [FormerlySerializedAs("moveSpeed")]
     [Header("Movement")]
     [SerializeField] private float _moveSpeed = 4f;
+    [SerializeField] private InputActionReference _moveAction;
     
     [Header("Animation")]
     [SerializeField] private Animator _animator;
@@ -36,24 +37,42 @@ public class PlayerController2D : MonoBehaviour
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    public void OnMove(InputValue value)
+    private void OnEnable()
     {
-        _moveInput = value.Get<Vector2>();
+        InputAction moveAction = _moveAction != null ? _moveAction.action : null;
+        if (moveAction == null)
+            return;
 
-        if (_moveInput.sqrMagnitude > 0.01f)
-        {
-            _lastMoveDirection = _moveInput.normalized;
-            UpdateSpriteDirection(_lastMoveDirection);
-        }
+        moveAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _moveInput = Vector2.zero;
+        UpdateAnimationState(0f);
     }
 
     private void FixedUpdate()
     {
+        ReadMoveInput();
+
         Vector2 movement = _moveInput.normalized * _moveSpeed * Time.fixedDeltaTime;
         _rb.MovePosition(_rb.position + movement);
 
         float currentSpeed = movement.magnitude / Time.fixedDeltaTime;
         UpdateAnimationState(currentSpeed);
+    }
+
+    private void ReadMoveInput()
+    {
+        InputAction moveAction = _moveAction != null ? _moveAction.action : null;
+        _moveInput = moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero;
+
+        if (_moveInput.sqrMagnitude <= 0.01f)
+            return;
+
+        _lastMoveDirection = _moveInput.normalized;
+        UpdateSpriteDirection(_lastMoveDirection);
     }
 
     private void UpdateAnimationState(float currentSpeed)

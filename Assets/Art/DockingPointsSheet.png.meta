@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 5684f4210a6ae8f46874972219da1679
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4596361760327092778
+    second: DockingPointsSheet_0
+  - first:
+      213: -6913656079666385662
+    second: DockingPointsSheet_1
+  - first:
+      213: -6097251789752110431
+    second: DockingPointsSheet_2
+  - first:
+      213: 8601928824708427257
+    second: DockingPointsSheet_3
+  - first:
+      213: -572278321424113201
+    second: DockingPointsSheet_4
+  - first:
+      213: -3935097057234915291
+    second: DockingPointsSheet_5
+  - first:
+      213: 7108262620577548926
+    second: DockingPointsSheet_6
+  - first:
+      213: -5922954340900486360
+    second: DockingPointsSheet_7
+  - first:
+      213: -8501683965583042169
+    second: DockingPointsSheet_8
+  - first:
+      213: -8903869028857753081
+    second: DockingPointsSheet_9
+  - first:
+      213: -5177822724979830005
+    second: DockingPointsSheet_10
+  - first:
+      213: -4953257091039281040
+    second: DockingPointsSheet_11
+  - first:
+      213: -3602285793804313045
+    second: DockingPointsSheet_12
+  - first:
+      213: 8497158413863169427
+    second: DockingPointsSheet_13
+  - first:
+      213: -7342190565316832184
+    second: DockingPointsSheet_14
+  - first:
+      213: 494365887694122753
+    second: DockingPointsSheet_15
+  - first:
+      213: 3328274029057390238
+    second: DockingPointsSheet_16
+  - first:
+      213: -6174724360247129375
+    second: DockingPointsSheet_17
+  - first:
+      213: 6904260466760606174
+    second: DockingPointsSheet_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DockingPointsSheet_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 728
+        width: 326
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d5b380e4517630c0800000000000000
+      internalID: -4596361760327092778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_1
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 717
+        width: 366
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20de348fc62cd00a0800000000000000
+      internalID: -6913656079666385662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_2
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 723
+        width: 282
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a2f5b54dc5326ba0800000000000000
+      internalID: -6097251789752110431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 732
+        width: 350
+        height: 268
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd60fbe0b0306770800000000000000
+      internalID: 8601928824708427257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_4
+      rect:
+        serializedVersion: 2
+        x: 1286
+        y: 961
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc1ebd216ebde08f0800000000000000
+      internalID: -572278321424113201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_5
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 496
+        width: 345
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 520f3d2531ab369c0800000000000000
+      internalID: -3935097057234915291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_6
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 256
+        width: 222
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7a46b5313f95a260800000000000000
+      internalID: 7108262620577548926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_7
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 405
+        width: 246
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 823c4c978607dcda0800000000000000
+      internalID: -5922954340900486360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_8
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 237
+        width: 202
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 789d9c62a73f30a80800000000000000
+      internalID: -8501683965583042169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_9
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 480
+        width: 356
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 702d4500b4a1f6480800000000000000
+      internalID: -8903869028857753081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_10
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 217
+        width: 339
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b03d1a73aada428b0800000000000000
+      internalID: -5177822724979830005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_11
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 496
+        width: 316
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0704b6f4bee724bb0800000000000000
+      internalID: -4953257091039281040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 0
+        width: 251
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2e9bd0082c120ec0800000000000000
+      internalID: -3602285793804313045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_13
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 0
+        width: 278
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39d298abe88fbe570800000000000000
+      internalID: 8497158413863169427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_14
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 220
+        width: 279
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 844d019d49c4b1a90800000000000000
+      internalID: -7342190565316832184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_15
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 265
+        width: 155
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10f2415d7275cd600800000000000000
+      internalID: 494365887694122753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_16
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 3
+        width: 211
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96bf117897603e20800000000000000
+      internalID: 3328274029057390238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_17
+      rect:
+        serializedVersion: 2
+        x: 903
+        y: 1
+        width: 266
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eac481d8e8fe4aa0800000000000000
+      internalID: -6174724360247129375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DockingPointsSheet_18
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 2
+        width: 313
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed1e90e605cd0df50800000000000000
+      internalID: 6904260466760606174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DockingPointsSheet_0: -4596361760327092778
+      DockingPointsSheet_1: -6913656079666385662
+      DockingPointsSheet_10: -5177822724979830005
+      DockingPointsSheet_11: -4953257091039281040
+      DockingPointsSheet_12: -3602285793804313045
+      DockingPointsSheet_13: 8497158413863169427
+      DockingPointsSheet_14: -7342190565316832184
+      DockingPointsSheet_15: 494365887694122753
+      DockingPointsSheet_16: 3328274029057390238
+      DockingPointsSheet_17: -6174724360247129375
+      DockingPointsSheet_18: 6904260466760606174
+      DockingPointsSheet_2: -6097251789752110431
+      DockingPointsSheet_3: 8601928824708427257
+      DockingPointsSheet_4: -572278321424113201
+      DockingPointsSheet_5: -3935097057234915291
+      DockingPointsSheet_6: 7108262620577548926
+      DockingPointsSheet_7: -5922954340900486360
+      DockingPointsSheet_8: -8501683965583042169
+      DockingPointsSheet_9: -8903869028857753081
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
