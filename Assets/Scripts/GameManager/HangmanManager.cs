@@ -19,6 +19,7 @@ public class HangmanManager : MonoBehaviour
     [Header("Ustawienia Gry")]
     public int letterCost = 50;
     public string playerName = "Cpt. Boris";
+    public int maxCharsPerLine = 15;
 
     private class WordSlot
     {
@@ -155,35 +156,65 @@ public class HangmanManager : MonoBehaviour
         wordSlots.Clear();
 
         string[] words = GameManager.Instance.currentWord.Split(' ');
+        List<string> lines = new List<string>();
+        string currentLine = "";
 
         foreach (string word in words)
+        {
+            if (currentLine.Length == 0)
+            {
+                currentLine = word; 
+            }
+            else if (currentLine.Length + 1 + word.Length <= maxCharsPerLine)
+            {
+                currentLine += " " + word; 
+            }
+            else
+            {
+                lines.Add(currentLine);
+                currentLine = word;
+            }
+        }
+        if (currentLine.Length > 0) lines.Add(currentLine);
+
+        foreach (string line in lines)
         {
             GameObject wordRow = new GameObject("WordRow");
             wordRow.transform.SetParent(wordContainer, false);
 
             HorizontalLayoutGroup hlg = wordRow.AddComponent<HorizontalLayoutGroup>();
             hlg.childAlignment = TextAnchor.MiddleCenter;
-
             hlg.childControlWidth = true;
             hlg.childControlHeight = true;
             hlg.childForceExpandWidth = false;
             hlg.childForceExpandHeight = false;
-            hlg.spacing = 15; 
+            hlg.spacing = 15;
 
             ContentSizeFitter csf = wordRow.AddComponent<ContentSizeFitter>();
             csf.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
             csf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            foreach (char c in word)
+            foreach (char c in line)
             {
                 GameObject newSlotObj = Instantiate(wordLetterPrefab, wordRow.transform);
                 TMP_Text parentUnderscore = newSlotObj.GetComponent<TMP_Text>();
                 TMP_Text childLetter = newSlotObj.transform.GetChild(0).GetComponent<TMP_Text>();
 
-                parentUnderscore.text = "_";
-                childLetter.text = "";
+                bool isSpaceChar = (c == ' ');
+                WordSlot slot = new WordSlot { targetChar = c, letterText = childLetter, isSpace = isSpaceChar };
 
-                wordSlots.Add(new WordSlot { targetChar = c, letterText = childLetter, isSpace = false });
+                if (isSpaceChar)
+                {
+                    parentUnderscore.text = "  "; 
+                    childLetter.text = " ";
+                }
+                else
+                {
+                    parentUnderscore.text = "_";
+                    childLetter.text = "";
+                }
+
+                wordSlots.Add(slot);
             }
         }
     }
@@ -231,7 +262,27 @@ public class HangmanManager : MonoBehaviour
 
         if (GameManager.Instance.SpendGold(letterCost))
         {
+            string targetNoSpaces = GameManager.Instance.currentWord.Replace(" ", "");
+            string newGuess = "";
+            int tIndex = 0;
+
+            foreach (char t in targetNoSpaces)
+            {
+                if (GameManager.Instance.unlockedLetters.Contains(t)) continue; 
+
+                if (tIndex < currentGuess.Length)
+                {
+                    if (t != letter)
+                    {
+                        newGuess += currentGuess[tIndex];
+                    }
+                    tIndex++;
+                }
+            }
+
+            currentGuess = newGuess;
             GameManager.Instance.unlockedLetters.Add(letter);
+
             bool isCorrect = GameManager.Instance.currentWord.Contains(letter.ToString());
 
             lText.color = isCorrect ? coinCorrectColor : coinWrongColor;
@@ -239,14 +290,20 @@ public class HangmanManager : MonoBehaviour
 
             UpdateBoardVisuals();
         }
+        else
+        {
+            Debug.Log("Za ma³o z³ota!");
+        }
     }
 
     private void UpdateBoardVisuals()
     {
-        int typedIndex = 0; 
+        int typedIndex = 0;
 
         for (int i = 0; i < wordSlots.Count; i++)
         {
+            if (wordSlots[i].isSpace) continue;
+
             char target = wordSlots[i].targetChar;
 
             if (GameManager.Instance.unlockedLetters.Contains(target))
@@ -264,7 +321,7 @@ public class HangmanManager : MonoBehaviour
                 }
                 else
                 {
-                    wordSlots[i].letterText.text = ""; 
+                    wordSlots[i].letterText.text = ""; // Puste miejsce oczekuj¹ce na wpisanie
                 }
             }
         }
