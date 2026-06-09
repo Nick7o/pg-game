@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IslandData
   mapSprite: {fileID: 1126403402544742965, guid: 347a090462d0f4445bc9a8274d1341dc, type: 3}
   islandGameObjectName: Forth Island
-  minBounds: {x: 0, y: 0}
-  maxBounds: {x: 0, y: 0}
+  minBounds: {x: -15, y: 6}
+  maxBounds: {x: 63, y: 64}

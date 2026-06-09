@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IslandData
   mapSprite: {fileID: 5084140936486715913, guid: 1a702c8d5d743a64a8108488e8115aa9, type: 3}
   islandGameObjectName: Sixth Island
-  minBounds: {x: 13, y: 7}
-  maxBounds: {x: 81, y: 68}
+  minBounds: {x: 10, y: 6}
+  maxBounds: {x: 90, y: 68}

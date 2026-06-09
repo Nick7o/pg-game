@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IslandData
   mapSprite: {fileID: 2234274758319803084, guid: 209f7e9f40cc2c94bb4d19886bfac7eb, type: 3}
   islandGameObjectName: Second Island
-  minBounds: {x: 0, y: 0}
-  maxBounds: {x: 0, y: 0}
+  minBounds: {x: -5, y: -4}
+  maxBounds: {x: 67, y: 45}
