@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class HUD : MonoBehaviour
 
     [SerializeField] private GameObject _interactionPrompt;
     [SerializeField] private TMPro.TextMeshProUGUI _interactionPromptText;
+
+    [SerializeField] private Slider _playerHealthBar;
 
     private void Awake()
     {
@@ -24,5 +27,14 @@ public class HUD : MonoBehaviour
 
         if (_interactionPromptText != null)
             _interactionPromptText.text = prompt;
+    }
+
+    public void UpdateHealthBar(float currentHealth, float maxHealth)
+    {
+        if (_playerHealthBar != null)
+        {
+            _playerHealthBar.maxValue = maxHealth;
+            _playerHealthBar.value = currentHealth;
+        }
     }
 }
