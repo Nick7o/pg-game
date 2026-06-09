@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
 
     private static Player _instance;
 
+    [Range(0f, 100f)]
+    [SerializeField] private float _startHealth = 100f;
+
     private PlayerController2D _controller;
     private InteractionController _interactionController;
     private Ship _ship;
@@ -25,6 +28,16 @@ public class Player : MonoBehaviour
     public Ship Ship => _ship;
     public CinemachineCamera Camera => _camera;
     public PlayerState CurrentState => _currentState;
+
+    public float Health
+    {
+        get => _startHealth;
+        set
+        {
+            _startHealth = Mathf.Clamp(value, 0f, 100f);
+            HUD.Instance.UpdateHealthBar(_startHealth, 100f);
+        }
+    }
 
     private void Awake()
     {

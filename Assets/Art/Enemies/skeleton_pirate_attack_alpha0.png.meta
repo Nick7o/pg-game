@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: d9e27259d87422e4eaa00b9b6fa18ec7
+guid: 87d6206461da24b4cad8f4581f2c122f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5007262879496799113
-    second: Enemy1_Attack1TBP_0
+      213: -1772746276972627462
+    second: skeleton_pirate_attack_alpha0_0
+  - first:
+      213: 8117258281475675395
+    second: skeleton_pirate_attack_alpha0_1
+  - first:
+      213: -2911650982922175146
+    second: skeleton_pirate_attack_alpha0_2
+  - first:
+      213: -6914589016601087626
+    second: skeleton_pirate_attack_alpha0_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,11 +56,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
-  spriteMeshType: 1
+  spriteExtrude: 2
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,8 +81,8 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy1_Attack1TBP_0
+      name: skeleton_pirate_attack_alpha0_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1916
-        height: 821
+        x: 67
+        y: 260
+        width: 340
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 983086d2f0f5d7540800000000000000
-      internalID: 5007262879496799113
+      spriteID: af9762c47a0f567e0800000000000000
+      internalID: -1772746276972627462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_pirate_attack_alpha0_1
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 260
+        width: 340
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3059471666b46a070800000000000000
+      internalID: 8117258281475675395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_pirate_attack_alpha0_2
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 260
+        width: 420
+        height: 320
+      alignment: 9
+      pivot: {x: 0.36615658, y: 0.49433327}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65db10d8bdcb797d0800000000000000
+      internalID: -2911650982922175146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_pirate_attack_alpha0_3
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 260
+        width: 340
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 671bca9ace17a00a0800000000000000
+      internalID: -6914589016601087626
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ca9d04bb829c2f141a48411883ce71a6
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Enemy1_Attack1TBP_0: 5007262879496799113
+      skeleton_pirate_attack_alpha0_0: -1772746276972627462
+      skeleton_pirate_attack_alpha0_1: 8117258281475675395
+      skeleton_pirate_attack_alpha0_2: -2911650982922175146
+      skeleton_pirate_attack_alpha0_3: -6914589016601087626
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
