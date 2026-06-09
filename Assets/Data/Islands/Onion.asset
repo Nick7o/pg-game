@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a6ed1cdbb609d468d9fedfbdffc0a1, type: 3}
+  m_Name: Onion
+  m_EditorClassIdentifier: Assembly-CSharp::IslandData
+  mapSprite: {fileID: -693845420924017546, guid: 7fd2eeda469e77c43a31710e55581a31, type: 3}
+  islandGameObjectName: Fifth Island
+  minBounds: {x: 0, y: 0}
+  maxBounds: {x: 0, y: 0}
