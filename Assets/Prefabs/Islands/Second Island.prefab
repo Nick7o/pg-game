@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 9065098300569730743}
   - component: {fileID: 5214351871189485887}
   - component: {fileID: 8714021528424019141}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Layer 2 - Flat Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8428,7 +8428,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9079217593325635189}
   - {fileID: 2806534463131420469}
   - {fileID: 5126577674285502715}
   - {fileID: 2938311204768766806}
@@ -12504,55 +12503,6 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
---- !u!1 &3536945652804098250
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9079217593325635189}
-  - component: {fileID: 4586560343090230562}
-  m_Layer: 0
-  m_Name: Second Island
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9079217593325635189
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3536945652804098250}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.87, y: -2.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6363084164578554494}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4586560343090230562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3536945652804098250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 462179f1690ce294991222d450376dd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SortingOrderController
-  _static: 1
-  _getChildrenAtStart: 1
-  _sprites: []
-  _offset: 0
-  _offsetPercent: 0.25
 --- !u!1 &3761058767692908292
 GameObject:
   m_ObjectHideFlags: 0
