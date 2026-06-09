@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8256875224402569036}
   - component: {fileID: 6834425467416350480}
   - component: {fileID: 6190322528244153148}
+  - component: {fileID: 3844167113080632491}
   m_Layer: 0
   m_Name: skeleton_pirate (Sprite)
   m_TagString: Untagged
@@ -114,6 +115,43 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &3844167113080632491
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2638378090647577313}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.21104622, y: -0.5454421}
+  m_Size: {x: 0.17608172, y: 0.17608172}
+  m_Direction: 0
 --- !u!1 &2689826590120394058
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +240,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _obstacleProbeRadius: 0.15
-  _allowDiagonalMovement: 0
+  _allowDiagonalMovement: 1
   _maxVisitedCells: 700
   _nearestWalkableSearchRadius: 3
 --- !u!114 &5158845582674349322
@@ -246,7 +284,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _attackRange: 0.9
-  _attackDamage: 10
+  _attackDamage: 8
   _attackCooldown: 1
   _attackHitDelay: 0.2
   _attackLockTime: 0.45
@@ -257,6 +295,8 @@ MonoBehaviour:
   _attackTrigger: Attack
   _walkAnimationSpeedThreshold: 0.01
   _reverseSpriteFlipDirection: 0
+  _hitFeedback: {fileID: 0}
+  _hitStunTime: 0.12
   _drawCurrentPath: 1
 --- !u!114 &3299558805087969770
 MonoBehaviour:

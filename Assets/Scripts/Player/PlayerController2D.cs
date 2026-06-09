@@ -26,6 +26,8 @@ public class PlayerController2D : MonoBehaviour
     private Vector2 _lastMoveDirection = Vector2.down;
     private bool _isWalking;
 
+    public Vector2 LastMoveDirection => _lastMoveDirection;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();

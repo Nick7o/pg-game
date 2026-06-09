@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private InteractionController _interactionController;
     private Ship _ship;
     private CinemachineCamera _camera;
+    private HitFeedback _hitFeedback;
     private PlayerState _currentState;
 
     public static Player Instance => _instance;
@@ -52,9 +53,36 @@ public class Player : MonoBehaviour
         _controller = GetComponent<PlayerController2D>();
         _interactionController = GetComponentInChildren<InteractionController>();
         _camera = GetComponentInChildren<CinemachineCamera>();
+        _hitFeedback = GetComponentInChildren<HitFeedback>();
+
+        if (_hitFeedback == null)
+            _hitFeedback = gameObject.AddComponent<HitFeedback>();
+
         _ship = GameObject.FindAnyObjectByType<Ship>();
 
         SetState(PlayerState.Player);
+    }
+
+    public void TakeDamage(float damage, Transform attacker = null)
+    {
+        if (damage <= 0f)
+            return;
+
+        if (_hitFeedback != null)
+        {
+            Vector2 sourcePosition = attacker != null ? attacker.position : transform.position;
+            _hitFeedback.Play(sourcePosition);
+        }
+
+        Health -= damage;
+    }
+
+    public void Heal(float amount)
+    {
+        if (amount <= 0f)
+            return;
+
+        Health += amount;
     }
 
     public void SetState(PlayerState state)

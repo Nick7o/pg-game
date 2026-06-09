@@ -102,6 +102,11 @@ public class AIEntity : MonoBehaviour
     [SerializeField] private float _walkAnimationSpeedThreshold = 0.01f;
     [SerializeField] private bool _reverseSpriteFlipDirection = false;
 
+    [Header("Feedback")]
+    [SerializeField] private HitFeedback _hitFeedback;
+    [Min(0f)]
+    [SerializeField] private float _hitStunTime = 0.12f;
+
     [Header("Debug")]
     [SerializeField] private bool _drawCurrentPath = true;
 
@@ -116,6 +121,7 @@ public class AIEntity : MonoBehaviour
     private float _waitUntilTime;
     private float _nextAttackTime;
     private float _nextPathRefreshTime;
+    private float _stunnedUntilTime;
     private int _pathIndex;
     private bool _hasPatrolTarget;
     private bool _isAttackLocked;
@@ -161,6 +167,12 @@ public class AIEntity : MonoBehaviour
         if (_spriteRenderer == null)
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
+        if (_hitFeedback == null)
+            _hitFeedback = GetComponentInChildren<HitFeedback>();
+
+        if (_hitFeedback == null)
+            _hitFeedback = gameObject.AddComponent<HitFeedback>();
+
         _maxHealth = Mathf.Max(0.01f, _maxHealth);
         _health = Mathf.Clamp(_health, 0f, _maxHealth);
         _spawnPosition = _rb.position;
@@ -200,6 +212,12 @@ public class AIEntity : MonoBehaviour
             return;
         }
 
+        if (Time.time < _stunnedUntilTime)
+        {
+            UpdateMovementAnimation(0f);
+            return;
+        }
+
         UpdateTarget();
 
         if (_currentTarget != null)
@@ -221,6 +239,7 @@ public class AIEntity : MonoBehaviour
         if (damage <= 0f)
             return;
 
+        PlayHitFeedback(attacker);
         Health -= damage;
 
         if (_becomesHostileWhenDamaged && IsAlive)
@@ -572,7 +591,17 @@ public class AIEntity : MonoBehaviour
 
         Player player = _currentTarget.GetComponentInParent<Player>();
         if (player != null)
-            player.Health -= _attackDamage;
+            player.TakeDamage(_attackDamage, transform);
+    }
+
+    private void PlayHitFeedback(Transform attacker)
+    {
+        if (_hitFeedback == null)
+            return;
+
+        Vector2 sourcePosition = attacker != null ? attacker.position : transform.position;
+        _hitFeedback.Play(sourcePosition);
+        _stunnedUntilTime = Time.time + _hitStunTime;
     }
 
     private void UpdateMovementAnimation(float currentSpeed)
