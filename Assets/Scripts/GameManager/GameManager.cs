@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         {
             timeRemaining -= Time.deltaTime;
         }
-        else if (timeRemaining < 0)
+        else if (timeRemaining < 0 || timeRemaining == 0)
         {
             timeRemaining = 0;
             Debug.Log("PRZEGRANA - koniec czasu");
