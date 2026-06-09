@@ -59,6 +59,17 @@ public class AIEntity : MonoBehaviour
     [Min(0f)]
     [SerializeField] private float _waypointReachedDistance = 0.08f;
 
+    [Header("Unstuck")]
+    [SerializeField] private bool _recalculateWhenStuck = true;
+    [Min(0f)]
+    [SerializeField] private float _stuckCheckInterval = 0.2f;
+    [Min(0f)]
+    [SerializeField] private float _stuckMoveDistanceThreshold = 0.025f;
+    [Min(0f)]
+    [SerializeField] private float _stuckTimeToRecalculate = 0.55f;
+    [Min(0f)]
+    [SerializeField] private float _blockedPathRetryDelay = 0.1f;
+
     [Header("Patrol")]
     [SerializeField] private bool _canPatrol = true;
     [Min(0f)]
@@ -122,10 +133,14 @@ public class AIEntity : MonoBehaviour
     private float _nextAttackTime;
     private float _nextPathRefreshTime;
     private float _stunnedUntilTime;
+    private float _nextStuckCheckTime;
+    private float _stuckTime;
     private int _pathIndex;
     private bool _hasPatrolTarget;
     private bool _isAttackLocked;
     private bool _isWalking;
+    private bool _triedToMoveSinceLastStuckCheck;
+    private Vector2 _lastStuckCheckPosition;
 
     public AIEntityType EntityType => _entityType;
     public AIEntityState CurrentState => _currentState;
@@ -177,6 +192,7 @@ public class AIEntity : MonoBehaviour
         _health = Mathf.Clamp(_health, 0f, _maxHealth);
         _spawnPosition = _rb.position;
         _patrolTargetPosition = _spawnPosition;
+        _lastStuckCheckPosition = _rb.position;
     }
 
     private void OnValidate()
@@ -191,6 +207,7 @@ public class AIEntity : MonoBehaviour
     {
         _nextAttackTime = Time.time + Random.Range(0f, Mathf.Max(0f, _attackCooldown));
         _nextPathRefreshTime = 0f;
+        ResetStuckTracking();
         SetState(AIEntityState.Idle);
     }
 
@@ -209,12 +226,14 @@ public class AIEntity : MonoBehaviour
         if (_isAttackLocked)
         {
             UpdateMovementAnimation(0f);
+            ResetStuckTracking();
             return;
         }
 
         if (Time.time < _stunnedUntilTime)
         {
             UpdateMovementAnimation(0f);
+            ResetStuckTracking();
             return;
         }
 
@@ -223,10 +242,13 @@ public class AIEntity : MonoBehaviour
         if (_currentTarget != null)
         {
             HandleCombatMovement();
-            return;
+        }
+        else
+        {
+            HandlePatrolMovement();
         }
 
-        HandlePatrolMovement();
+        UpdateStuckDetection();
     }
 
     public virtual void TakeDamage(float damage)
@@ -517,16 +539,28 @@ public class AIEntity : MonoBehaviour
         Vector2 direction = toDestination.normalized;
         Vector2 nextPosition = Vector2.MoveTowards(currentPosition, destination, _moveSpeed * Time.fixedDeltaTime);
 
-        if (!IsWorldPositionWalkable(nextPosition))
-        {
-            ClearPath();
-            return 0f;
-        }
+        if (!IsWorldPositionWalkable(nextPosition) || IsMovementBlocked(currentPosition, nextPosition))
+            return HandleBlockedMovement();
 
         _rb.MovePosition(nextPosition);
         UpdateSpriteDirection(direction);
+        _triedToMoveSinceLastStuckCheck = true;
 
         return (nextPosition - currentPosition).magnitude / Time.fixedDeltaTime;
+    }
+
+    private float HandleBlockedMovement()
+    {
+        _nextPathRefreshTime = 0f;
+        ClearPath();
+
+        if (_currentTarget == null)
+        {
+            _hasPatrolTarget = false;
+            _waitUntilTime = Time.time + _blockedPathRetryDelay;
+        }
+
+        return 0f;
     }
 
     private bool CanUsePathfinding()
@@ -537,6 +571,63 @@ public class AIEntity : MonoBehaviour
     private bool IsWorldPositionWalkable(Vector2 position)
     {
         return _pathfinder == null || _pathfinder.IsWorldPositionWalkable(position);
+    }
+
+    private bool IsMovementBlocked(Vector2 currentPosition, Vector2 nextPosition)
+    {
+        return _pathfinder != null && _pathfinder.IsMovementBlocked(currentPosition, nextPosition);
+    }
+
+    private void UpdateStuckDetection()
+    {
+        if (!_recalculateWhenStuck)
+            return;
+
+        if (Time.time < _nextStuckCheckTime)
+            return;
+
+        _nextStuckCheckTime = Time.time + Mathf.Max(0.02f, _stuckCheckInterval);
+
+        if (!_triedToMoveSinceLastStuckCheck)
+        {
+            ResetStuckTracking();
+            return;
+        }
+
+        float movedDistance = Vector2.Distance(_rb.position, _lastStuckCheckPosition);
+        if (movedDistance <= _stuckMoveDistanceThreshold)
+            _stuckTime += _stuckCheckInterval;
+        else
+            _stuckTime = 0f;
+
+        _lastStuckCheckPosition = _rb.position;
+        _triedToMoveSinceLastStuckCheck = false;
+
+        if (_stuckTime < _stuckTimeToRecalculate)
+            return;
+
+        ForcePathRecalculation();
+    }
+
+    private void ForcePathRecalculation()
+    {
+        _stuckTime = 0f;
+        _nextPathRefreshTime = 0f;
+        ClearPath();
+
+        if (_currentTarget != null)
+            return;
+
+        _hasPatrolTarget = false;
+        _waitUntilTime = Time.time + _blockedPathRetryDelay;
+    }
+
+    private void ResetStuckTracking()
+    {
+        _stuckTime = 0f;
+        _triedToMoveSinceLastStuckCheck = false;
+        _lastStuckCheckPosition = _rb != null ? _rb.position : (Vector2)transform.position;
+        _nextStuckCheckTime = Time.time + Mathf.Max(0.02f, _stuckCheckInterval);
     }
 
     private void ClearPath()
