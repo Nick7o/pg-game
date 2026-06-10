@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6834425467416350480}
   - component: {fileID: 6190322528244153148}
   - component: {fileID: 3844167113080632491}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: skeleton_pirate (Sprite)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 3299558805087969770}
   - component: {fileID: 6844157624315853755}
   - component: {fileID: 7181451051019367306}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
