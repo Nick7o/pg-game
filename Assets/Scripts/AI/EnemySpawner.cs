@@ -32,24 +32,23 @@ public class EnemySpawner : MonoBehaviour
     // Zmienne do przechowywania referencji do ziemi
     private Tilemap mainGround;
     private Tilemap[] additionalGrounds;
+    private List<Tilemap> allGroundTilemaps = new List<Tilemap>();
 
     private void Awake()
     {
-        // Spawner szuka ziemi na samym starcie gry
-        GroundTilemap[] allGrounds = Object.FindObjectsByType<GroundTilemap>(FindObjectsSortMode.None);
-        if (allGrounds.Length > 0)
+        // Spawner szuka wszystkich obiektów z naklejk¹ GroundTilemap
+        GroundTilemap[] groundMarkers = Object.FindObjectsByType<GroundTilemap>(FindObjectsSortMode.None);
+
+        foreach (GroundTilemap marker in groundMarkers)
         {
-            mainGround = allGrounds[0].GetComponent<Tilemap>();
-            if (allGrounds.Length > 1)
+            Tilemap tm = marker.GetComponent<Tilemap>();
+            if (tm != null)
             {
-                additionalGrounds = new Tilemap[allGrounds.Length - 1];
-                for (int i = 1; i < allGrounds.Length; i++)
-                {
-                    additionalGrounds[i - 1] = allGrounds[i].GetComponent<Tilemap>();
-                }
+                allGroundTilemaps.Add(tm);
             }
         }
-        else
+
+        if (allGroundTilemaps.Count == 0)
         {
             Debug.LogError("Spawner nie znalaz³ ¿adnego obiektu ze skryptem GroundTilemap na scenie!");
         }
@@ -84,23 +83,23 @@ public class EnemySpawner : MonoBehaviour
     // --- NOWA FUNKCJA: WERYFIKACJA BEZPIECZNEGO GRUNTU ---
     private bool IsValidSpawnPoint(Vector2 point)
     {
-        if (mainGround == null) return false;
+        if (allGroundTilemaps.Count == 0) return false;
 
-        Vector3Int cellPosition = mainGround.WorldToCell(point);
-
-        // Sprawdzamy g³ówn¹ wyspê
-        if (mainGround.HasTile(cellPosition)) return true;
-
-        // Sprawdzamy ewentualne inne wyspy
-        if (additionalGrounds != null)
+        // Przeszukujemy po kolei ka¿dy zarejestrowany tilemap
+        foreach (Tilemap tm in allGroundTilemaps)
         {
-            foreach (Tilemap tm in additionalGrounds)
+            if (tm == null) continue;
+
+            Vector3Int cellPosition = tm.WorldToCell(point);
+
+            // Jeœli ten konkretny tilemap ma kafelek w tym miejscu, to mamy sukces!
+            if (tm.HasTile(cellPosition))
             {
-                if (tm != null && tm.HasTile(cellPosition)) return true;
+                return true;
             }
         }
 
-        return false; // W tym miejscu nie ma ¿adnego kafelka ziemi!
+        return false; // Punkt nie wpad³ na ¿adn¹ z wysp
     }
 
     private void SpawnEnemy()
