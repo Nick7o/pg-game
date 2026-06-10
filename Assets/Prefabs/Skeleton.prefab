@@ -210,7 +210,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -271,6 +271,11 @@ MonoBehaviour:
   _pathRefreshInterval: 0.25
   _pathDestinationMoveThreshold: 0.35
   _waypointReachedDistance: 0.08
+  _recalculateWhenStuck: 1
+  _stuckCheckInterval: 0.2
+  _stuckMoveDistanceThreshold: 0.025
+  _stuckTimeToRecalculate: 0.55
+  _blockedPathRetryDelay: 0.1
   _canPatrol: 1
   _patrolRadius: 4
   _patrolPointReachedDistance: 0.15

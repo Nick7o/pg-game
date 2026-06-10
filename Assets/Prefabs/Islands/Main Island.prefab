@@ -87599,6 +87599,7 @@ GameObject:
   - component: {fileID: 593986959258822928}
   - component: {fileID: 2974770023899234080}
   - component: {fileID: 1776073235658560927}
+  - component: {fileID: 7616016928915034203}
   m_Layer: 0
   m_Name: Layer 2 - Flat Ground
   m_TagString: Untagged
@@ -93461,6 +93462,18 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
+--- !u!114 &7616016928915034203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112760541272467100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad217c317fad4b24a9b01ba74566bd52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundTilemap
 --- !u!1 &4228558987507586732
 GameObject:
   m_ObjectHideFlags: 0
