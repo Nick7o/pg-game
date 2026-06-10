@@ -69,15 +69,6 @@ public class ActiveTreasureMap
         else
         {
             Debug.Log($"[TreasureSystem] Sukces! Skarb dla '{island.islandGameObjectName}' schowany na pozycji: {treasureTilePosition}");
-
-            // Spawn kostki debugowej do testu
-            Vector3 worldPos = targetTilemap.GetCellCenterWorld(treasureTilePosition);
-            GameObject debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            debugCube.transform.position = worldPos;
-            debugCube.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            debugCube.GetComponent<Renderer>().material.color = Color.red;
-            GameObject.Destroy(debugCube.GetComponent<BoxCollider>());
-            debugCube.name = $"DEBUG_SKARB_{island.islandGameObjectName}";
         }
     }
 }
