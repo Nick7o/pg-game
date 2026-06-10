@@ -118,6 +118,18 @@ public class AIEntity : MonoBehaviour
     [Min(0f)]
     [SerializeField] private float _hitStunTime = 0.12f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioCue _ambientSound;
+    [SerializeField] private AudioCue _aggroSound;
+    [SerializeField] private AudioCue _attackSound;
+    [SerializeField] private AudioCue _attackHitSound;
+    [SerializeField] private AudioCue _hurtSound;
+    [SerializeField] private AudioCue _deathSound;
+    [SerializeField] private bool _playAmbientSounds = true;
+    [SerializeField] private Vector2 _ambientInterval = new(4f, 9f);
+    [Min(0f)]
+    [SerializeField] private float _ambientHearingRange = 8f;
+
     [Header("Debug")]
     [SerializeField] private bool _drawCurrentPath = true;
 
@@ -135,6 +147,7 @@ public class AIEntity : MonoBehaviour
     private float _stunnedUntilTime;
     private float _nextStuckCheckTime;
     private float _stuckTime;
+    private float _nextAmbientSoundTime;
     private int _pathIndex;
     private bool _hasPatrolTarget;
     private bool _isAttackLocked;
@@ -209,6 +222,7 @@ public class AIEntity : MonoBehaviour
     {
         _nextAttackTime = Time.time + Random.Range(0f, Mathf.Max(0f, _attackCooldown));
         _nextPathRefreshTime = 0f;
+        ScheduleNextAmbientSound();
         ResetStuckTracking();
         SetState(AIEntityState.Idle);
     }
@@ -250,6 +264,7 @@ public class AIEntity : MonoBehaviour
             HandlePatrolMovement();
         }
 
+        UpdateAmbientAudio();
         UpdateStuckDetection();
     }
 
@@ -263,6 +278,7 @@ public class AIEntity : MonoBehaviour
         if (damage <= 0f)
             return;
 
+        PlayAudio(_hurtSound);
         PlayHitFeedback(attacker);
         Health -= damage;
 
@@ -294,6 +310,7 @@ public class AIEntity : MonoBehaviour
         if (!IsAlive)
             return;
 
+        bool wasHostile = _isHostile;
         _isHostile = true;
 
         if (target != null)
@@ -304,6 +321,9 @@ public class AIEntity : MonoBehaviour
         _currentTarget = _target;
         _nextPathRefreshTime = 0f;
         ClearPath();
+
+        if (!wasHostile)
+            PlayAudio(_aggroSound);
     }
 
     protected virtual void Die()
@@ -317,6 +337,7 @@ public class AIEntity : MonoBehaviour
         ClearPath();
         SetState(AIEntityState.Dead);
         UpdateMovementAnimation(0f);
+        PlayAudio(_deathSound);
         Died?.Invoke(this);
 
         if (_destroyOnDeath)
@@ -660,6 +681,7 @@ public class AIEntity : MonoBehaviour
         _nextAttackTime = Time.time + Mathf.Max(0f, _attackCooldown);
         SetState(AIEntityState.Attack);
         TriggerAnimation(_attackTrigger);
+        PlayAudio(_attackSound);
 
         yield return new WaitForSeconds(Mathf.Max(0f, _attackHitDelay));
         DealDamageToTarget();
@@ -685,7 +707,10 @@ public class AIEntity : MonoBehaviour
 
         Player player = _currentTarget.GetComponentInParent<Player>();
         if (player != null)
+        {
+            PlayAudio(_attackHitSound);
             player.TakeDamage(_attackDamage, transform);
+        }
     }
 
     private void PlayHitFeedback(Transform attacker)
@@ -742,6 +767,38 @@ public class AIEntity : MonoBehaviour
             return;
 
         _currentState = state;
+    }
+
+    private void UpdateAmbientAudio()
+    {
+        if (!_playAmbientSounds || _ambientSound == null || Time.time < _nextAmbientSoundTime)
+            return;
+
+        if (_ambientHearingRange > 0f && Player.Instance != null)
+        {
+            float sqrRange = _ambientHearingRange * _ambientHearingRange;
+            if (((Vector2)Player.Instance.transform.position - _rb.position).sqrMagnitude > sqrRange)
+            {
+                ScheduleNextAmbientSound();
+                return;
+            }
+        }
+
+        PlayAudio(_ambientSound);
+        ScheduleNextAmbientSound();
+    }
+
+    private void ScheduleNextAmbientSound()
+    {
+        float minInterval = Mathf.Max(0.1f, Mathf.Min(_ambientInterval.x, _ambientInterval.y));
+        float maxInterval = Mathf.Max(minInterval, Mathf.Max(_ambientInterval.x, _ambientInterval.y));
+        _nextAmbientSoundTime = Time.time + Random.Range(minInterval, maxInterval);
+    }
+
+    private void PlayAudio(AudioCue cue)
+    {
+        if (cue != null)
+            cue.PlayAt(transform.position);
     }
 
     private void OnDrawGizmosSelected()

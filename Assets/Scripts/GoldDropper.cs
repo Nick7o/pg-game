@@ -21,6 +21,9 @@ public class GoldDropper : MonoBehaviour
     [Header("Prefab")]
     [SerializeField] private GoldPickup _goldPickupPrefab;
 
+    [Header("Audio")]
+    [SerializeField] private AudioCue _dropSound;
+
     private AIEntity _aiEntity;
 
     private void Awake()
@@ -62,6 +65,9 @@ public class GoldDropper : MonoBehaviour
         int totalGold = Random.Range(_minGold, _maxGold + 1);
         if (totalGold <= 0)
             return;
+
+        if (_dropSound != null)
+            _dropSound.PlayAt(transform.position);
 
         int pickupCount = Mathf.Min(totalGold, Random.Range(_minPickups, _maxPickups + 1));
         int remainingGold = totalGold;

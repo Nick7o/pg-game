@@ -25,6 +25,11 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private string _attackTrigger = "Attack";
 
+    [Header("Audio")]
+    [SerializeField] private AudioCue _attackSound;
+    [SerializeField] private AudioCue _hitSound;
+    [SerializeField] private AudioCue _missSound;
+
     [Header("Debug")]
     [SerializeField] private bool _drawAttackRange = true;
 
@@ -86,6 +91,7 @@ public class PlayerCombat : MonoBehaviour
         _isAttacking = true;
         _nextAttackTime = Time.time + Mathf.Max(0f, _attackCooldown);
         TriggerAttackAnimation();
+        PlayAudio(_attackSound, transform.position);
 
         yield return new WaitForSeconds(Mathf.Max(0f, _attackHitDelay));
         DealDamage();
@@ -109,6 +115,8 @@ public class PlayerCombat : MonoBehaviour
             _damagedEntities.Add(aiEntity);
             aiEntity.TakeDamage(_attackDamage, transform);
         }
+
+        PlayAudio(_damagedEntities.Count > 0 ? _hitSound : _missSound, hitPosition);
     }
 
     private int GetTargetLayerMask()
@@ -137,6 +145,12 @@ public class PlayerCombat : MonoBehaviour
 
         _animator.ResetTrigger(_attackTrigger);
         _animator.SetTrigger(_attackTrigger);
+    }
+
+    private void PlayAudio(AudioCue cue, Vector3 position)
+    {
+        if (cue != null)
+            cue.PlayAt(position);
     }
 
     private void OnDrawGizmosSelected()

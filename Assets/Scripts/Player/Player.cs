@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     private HitFeedback _hitFeedback;
     private PlayerState _currentState;
 
+    [Header("Audio")]
+    [SerializeField] private AudioCue _hurtSound;
+    [SerializeField] private AudioCue _healSound;
+
     public static Player Instance => _instance;
 
     public PlayerController2D Controller => _controller;
@@ -74,6 +78,9 @@ public class Player : MonoBehaviour
             _hitFeedback.Play(sourcePosition);
         }
 
+        if (_hurtSound != null)
+            _hurtSound.PlayAt(transform.position);
+
         Health -= damage;
     }
 
@@ -81,6 +88,9 @@ public class Player : MonoBehaviour
     {
         if (amount <= 0f)
             return;
+
+        if (_healSound != null)
+            _healSound.PlayAt(transform.position);
 
         Health += amount;
     }
