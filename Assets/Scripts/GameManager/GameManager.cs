@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    //globalny dostêp z ka¿dego miejsca poprzez GameManager.Instance
     public static GameManager Instance { get; private set; }
 
     [Header("Zasoby Gracza")]
@@ -37,6 +36,7 @@ public class GameManager : MonoBehaviour
         "PIRATES OF THE CARIBBEAN",
         "NOT ALL TREASURE IS GOLD"
     };
+    private bool isGameOver = false;
 
     private void Awake()
     {
@@ -55,16 +55,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Globalne odliczanie czasu
+        if (isGameOver) return;
+
+        if (GameFlowController.Instance == null) return;
+
         if (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
         }
-        else if (timeRemaining < 0 || timeRemaining == 0)
+        else
         {
             timeRemaining = 0;
+            isGameOver = true;
             Debug.Log("PRZEGRANA - koniec czasu");
-            // Tutaj w przysz³osci mo¿na wywo³ac funkcjê przegranej (Koniec Czasu)
+            GameFlowController.Instance.TriggerLose();
         }
     }
 
@@ -72,8 +76,8 @@ public class GameManager : MonoBehaviour
     {
         playerGold = 100; // TEST potem zmienic na 0
         timeRemaining = 900f;
+        isGameOver = false; // Resetujemy flagê na starcie nowej gry!
 
-        // Losowanie hasla i zamiana na wielkie litery dla pewnoœci
         currentWord = wordPool[Random.Range(0, wordPool.Length)].ToUpper();
         unlockedLetters.Clear();
     }
