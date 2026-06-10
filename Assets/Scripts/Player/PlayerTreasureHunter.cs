@@ -37,7 +37,7 @@ public class PlayerTreasureHunter : MonoBehaviour
         }
     }
 
-    private void DrawNewMaps()
+    public void DrawNewMaps()
     {
         if (allAvailableIslands.Count == 0)
         {
