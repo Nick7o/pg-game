@@ -5,6 +5,11 @@ public class MainMenuManager : MonoBehaviour
 {
     public void PlayGame()
     {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.InitializeGame();
+        }
+
         SceneManager.LoadScene("MainScene");
     }
 
