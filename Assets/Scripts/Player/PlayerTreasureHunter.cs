@@ -17,6 +17,8 @@ public class PlayerTreasureHunter : MonoBehaviour
     [Header("Animacje i Dźwięki")]
     public AudioClip dirtDigSound;      
     public AudioClip treasureHitSound;
+    [SerializeField] private SoundCue dirtDigSoundCue;
+    [SerializeField] private SoundCue treasureHitSoundCue;
 
     [SerializeField]
     private Animator anim;
@@ -106,7 +108,11 @@ public class PlayerTreasureHunter : MonoBehaviour
                 if (distanceX <= 1 && distanceY <= 1)
                 {
 
-                    if (treasureHitSound != null)
+                    if (treasureHitSoundCue != null && treasureHitSoundCue.HasClips)
+                    {
+                        treasureHitSoundCue.PlayAt(transform.position);
+                    }
+                    else if (treasureHitSound != null)
                     {
                         audioSource.PlayOneShot(treasureHitSound);
                     }
@@ -138,7 +144,11 @@ public class PlayerTreasureHunter : MonoBehaviour
             }
         }
 
-        if (dirtDigSound != null)
+        if (dirtDigSoundCue != null && dirtDigSoundCue.HasClips)
+        {
+            dirtDigSoundCue.PlayAt(transform.position);
+        }
+        else if (dirtDigSound != null)
         {
             audioSource.PlayOneShot(dirtDigSound);
         }

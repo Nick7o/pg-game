@@ -144,6 +144,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _startHealth: 100
+  _hurtSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _healSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
 --- !u!114 &6117841215892895890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +181,20 @@ MonoBehaviour:
   myMaps: []
   dirtDigSound: {fileID: 0}
   treasureHitSound: {fileID: 0}
+  dirtDigSoundCue:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  treasureHitSoundCue:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
   anim: {fileID: 1021467329227053528}
 --- !u!114 &6204474903261914665
 MonoBehaviour:
@@ -191,6 +219,28 @@ MonoBehaviour:
     m_Bits: 128
   _animator: {fileID: 1021467329227053528}
   _attackTrigger: Attack
+  _attackSound:
+    _clips:
+    - {fileID: 8300000, guid: e4b43489440e07047868c138711cd69c, type: 3}
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _hitSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _missSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
   _drawAttackRange: 1
 --- !u!1 &2485906137243266341
 GameObject:

@@ -165,6 +165,8 @@ GameObject:
   - component: {fileID: 132110979644505064}
   - component: {fileID: 5158845582674349322}
   - component: {fileID: 3299558805087969770}
+  - component: {fileID: 6844157624315853755}
+  - component: {fileID: 7181451051019367306}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -302,6 +304,52 @@ MonoBehaviour:
   _reverseSpriteFlipDirection: 0
   _hitFeedback: {fileID: 0}
   _hitStunTime: 0.12
+  _ambientSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _aggroSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _attackSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _attackHitSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _hurtSound:
+    _clips:
+    - {fileID: 8300000, guid: 326f72d12f8bc9f46b3e041a874e2b23, type: 3}
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _deathSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _playAmbientSounds: 1
+  _ambientInterval: {x: 4, y: 9}
+  _ambientHearingRange: 8
   _drawCurrentPath: 1
 --- !u!114 &3299558805087969770
 MonoBehaviour:
@@ -321,3 +369,52 @@ MonoBehaviour:
   - {fileID: 6834425467416350480}
   _offset: 0
   _offsetPercent: 0.184
+--- !u!114 &6844157624315853755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689826590120394058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7858f01b680d4c9a96d65d52e2d9fa01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFeedback
+  _getSpriteRenderersInChildren: 1
+  _spriteRenderers: []
+  _hitColor: {r: 1, g: 0.35, b: 0.35, a: 1}
+  _flashDuration: 0.06
+  _recoverDuration: 0.08
+  _useKnockback: 1
+  _rb: {fileID: 3738866794521270353}
+  _knockbackDistance: 0.22
+  _knockbackDuration: 0.07
+--- !u!114 &7181451051019367306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689826590120394058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4157db9b94644a9dbdd12e850c7ae725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldDropper
+  _dropGold: 1
+  _dropChance: 1
+  _minGold: 3
+  _maxGold: 8
+  _minPickups: 1
+  _maxPickups: 3
+  _scatterRadius: 0.35
+  _goldPickupPrefab: {fileID: 2513448101188729136, guid: 895ffc9e156ea194f89a402ec2203b3c, type: 3}
+  _dropSound:
+    _clips:
+    - {fileID: 8300000, guid: fcc8a2ca650e0d949bf92e136bb65189, type: 3}
+    _volume: 0.701
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
