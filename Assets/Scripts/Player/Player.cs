@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     public CinemachineCamera Camera => _camera;
     public PlayerState CurrentState => _currentState;
 
+    private bool _isDead = false;
+
     public float Health
     {
         get => _startHealth;
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage, Transform attacker = null)
     {
-        if (damage <= 0f)
+        if (damage <= 0f || _isDead)
             return;
 
         if (_hitFeedback != null)
@@ -82,6 +84,12 @@ public class Player : MonoBehaviour
             _hurtSound.PlayAt(transform.position);
 
         Health -= damage;
+
+        if (Health <= 0f)
+        {
+            _isDead = true;
+            GameFlowController.Instance.TriggerPlayerDeath();
+        }
     }
 
     public void Heal(float amount)
@@ -114,5 +122,10 @@ public class Player : MonoBehaviour
         gameObject.SetActive(state == PlayerState.Player);
 
         _currentState = state;
+    }
+
+    public void ResetDeathState()
+    {
+        _isDead = false;
     }
 }

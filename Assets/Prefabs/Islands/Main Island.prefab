@@ -2863,6 +2863,7 @@ GameObject:
   - component: {fileID: 5942238302536932225}
   - component: {fileID: 4306913717411030382}
   - component: {fileID: 5441409421423815505}
+  - component: {fileID: 6281413394242969211}
   m_Layer: 0
   m_Name: Mapman
   m_TagString: Untagged
@@ -2990,6 +2991,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.6342564, y: 1.7077987}
   m_EdgeRadius: 0
+--- !u!114 &6281413394242969211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527688755054217523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03c0c071c3346147bd13571e1ef1c4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapRerollInteractable
+  _canInteract: 1
+  rerollCost: 40
 --- !u!1 &2539905187132118058
 GameObject:
   m_ObjectHideFlags: 0
