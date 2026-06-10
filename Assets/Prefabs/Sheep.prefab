@@ -304,6 +304,53 @@ MonoBehaviour:
   _reverseSpriteFlipDirection: 0
   _hitFeedback: {fileID: 0}
   _hitStunTime: 0.12
+  _ambientSound:
+    _clips:
+    - {fileID: 8300000, guid: 4390bf1e1bef919449eb261f0e8626cb, type: 3}
+    - {fileID: 8300000, guid: 435c29b3ffb35a74d8dc3af753b9f57e, type: 3}
+    _volume: 0.557
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _aggroSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _attackSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _attackHitSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _hurtSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _deathSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _playAmbientSounds: 1
+  _ambientInterval: {x: 4, y: 9}
+  _ambientHearingRange: 8
   _drawCurrentPath: 1
 --- !u!114 &8335432151784664993
 MonoBehaviour:
@@ -364,3 +411,11 @@ MonoBehaviour:
   _maxPickups: 3
   _scatterRadius: 0.5
   _goldPickupPrefab: {fileID: 2513448101188729136, guid: 895ffc9e156ea194f89a402ec2203b3c, type: 3}
+  _dropSound:
+    _clips:
+    - {fileID: 8300000, guid: fcc8a2ca650e0d949bf92e136bb65189, type: 3}
+    _volume: 0.576
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12

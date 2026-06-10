@@ -1,5 +1,48 @@
 using UnityEngine;
 
+[System.Serializable]
+public class SoundCue
+{
+    [SerializeField] private AudioClip[] _clips;
+    [Range(0f, 1f)]
+    [SerializeField] private float _volume = 1f;
+    [SerializeField] private Vector2 _pitchRange = new(0.95f, 1.05f);
+    [SerializeField] private bool _spatial = true;
+    [Min(0f)]
+    [SerializeField] private float _minDistance = 1f;
+    [Min(0.01f)]
+    [SerializeField] private float _maxDistance = 12f;
+
+    public bool HasClips => _clips != null && _clips.Length > 0;
+
+    public void PlayAt(Vector3 position)
+    {
+        AudioClip clip = GetRandomClip();
+        if (clip == null)
+            return;
+
+        if (_spatial && !AudioCue.IsListenerInRange(position, _maxDistance))
+            return;
+
+        AudioCue.PlayClipAt(clip, position, _volume, GetRandomPitch(), _spatial, _minDistance, _maxDistance);
+    }
+
+    public AudioClip GetRandomClip()
+    {
+        if (_clips == null || _clips.Length == 0)
+            return null;
+
+        return _clips[Random.Range(0, _clips.Length)];
+    }
+
+    private float GetRandomPitch()
+    {
+        float minPitch = Mathf.Max(0.01f, Mathf.Min(_pitchRange.x, _pitchRange.y));
+        float maxPitch = Mathf.Max(minPitch, Mathf.Max(_pitchRange.x, _pitchRange.y));
+        return Random.Range(minPitch, maxPitch);
+    }
+}
+
 public class AudioCue : MonoBehaviour
 {
     [SerializeField] private AudioClip[] _clips;
@@ -67,7 +110,11 @@ public class AudioCue : MonoBehaviour
             return;
 
         GameObject audioObject = new("One Shot Audio");
-        audioObject.transform.position = position;
+
+        if (spatial && TryGetListenerPosition(out Vector3 listenerPosition))
+            audioObject.transform.position = new Vector3(position.x, position.y, listenerPosition.z);
+        else
+            audioObject.transform.position = position;
 
         AudioSource source = audioObject.AddComponent<AudioSource>();
         source.clip = clip;
@@ -80,6 +127,42 @@ public class AudioCue : MonoBehaviour
         source.Play();
 
         Destroy(audioObject, clip.length / source.pitch + 0.1f);
+    }
+
+    public static bool TryGetListenerPosition(out Vector3 listenerPosition)
+    {
+        AudioListener listener = FindAnyObjectByType<AudioListener>();
+        if (listener != null)
+        {
+            listenerPosition = listener.transform.position;
+            return true;
+        }
+
+        if (Camera.main != null)
+        {
+            listenerPosition = Camera.main.transform.position;
+            return true;
+        }
+
+        if (Player.Instance != null)
+        {
+            listenerPosition = Player.Instance.transform.position;
+            return true;
+        }
+
+        listenerPosition = Vector3.zero;
+        return false;
+    }
+
+    public static bool IsListenerInRange(Vector3 position, float range)
+    {
+        if (range <= 0f)
+            return true;
+
+        if (!TryGetListenerPosition(out Vector3 listenerPosition))
+            return true;
+
+        return Vector2.SqrMagnitude((Vector2)listenerPosition - (Vector2)position) <= range * range;
     }
 
     private void ConfigureSource(AudioSource source)

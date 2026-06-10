@@ -5,8 +5,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class UIButtonAudio : MonoBehaviour, IPointerEnterHandler
 {
-    [SerializeField] private AudioCue _clickSound;
-    [SerializeField] private AudioCue _hoverSound;
+    [SerializeField] private SoundCue _clickSound;
+    [SerializeField] private SoundCue _hoverSound;
     [SerializeField] private bool _playClickWhenButtonDisabled = false;
 
     private Button _button;
@@ -32,13 +32,13 @@ public class UIButtonAudio : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_hoverSound != null && (_button == null || _button.interactable))
+        if (_hoverSound != null && _hoverSound.HasClips && (_button == null || _button.interactable))
             _hoverSound.PlayAt(transform.position);
     }
 
     private void PlayClickSound()
     {
-        if (_clickSound == null)
+        if (_clickSound == null || !_clickSound.HasClips)
             return;
 
         if (_button != null && !_button.interactable && !_playClickWhenButtonDisabled)

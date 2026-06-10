@@ -119,12 +119,12 @@ public class AIEntity : MonoBehaviour
     [SerializeField] private float _hitStunTime = 0.12f;
 
     [Header("Audio")]
-    [SerializeField] private AudioCue _ambientSound;
-    [SerializeField] private AudioCue _aggroSound;
-    [SerializeField] private AudioCue _attackSound;
-    [SerializeField] private AudioCue _attackHitSound;
-    [SerializeField] private AudioCue _hurtSound;
-    [SerializeField] private AudioCue _deathSound;
+    [SerializeField] private SoundCue _ambientSound;
+    [SerializeField] private SoundCue _aggroSound;
+    [SerializeField] private SoundCue _attackSound;
+    [SerializeField] private SoundCue _attackHitSound;
+    [SerializeField] private SoundCue _hurtSound;
+    [SerializeField] private SoundCue _deathSound;
     [SerializeField] private bool _playAmbientSounds = true;
     [SerializeField] private Vector2 _ambientInterval = new(4f, 9f);
     [Min(0f)]
@@ -771,13 +771,13 @@ public class AIEntity : MonoBehaviour
 
     private void UpdateAmbientAudio()
     {
-        if (!_playAmbientSounds || _ambientSound == null || Time.time < _nextAmbientSoundTime)
+        if (!_playAmbientSounds || _ambientSound == null || !_ambientSound.HasClips || Time.time < _nextAmbientSoundTime)
             return;
 
-        if (_ambientHearingRange > 0f && Player.Instance != null)
+        if (_ambientHearingRange > 0f && AudioCue.TryGetListenerPosition(out Vector3 listenerPosition))
         {
             float sqrRange = _ambientHearingRange * _ambientHearingRange;
-            if (((Vector2)Player.Instance.transform.position - _rb.position).sqrMagnitude > sqrRange)
+            if (Vector2.SqrMagnitude((Vector2)listenerPosition - _rb.position) > sqrRange)
             {
                 ScheduleNextAmbientSound();
                 return;
@@ -795,9 +795,9 @@ public class AIEntity : MonoBehaviour
         _nextAmbientSoundTime = Time.time + Random.Range(minInterval, maxInterval);
     }
 
-    private void PlayAudio(AudioCue cue)
+    private void PlayAudio(SoundCue cue)
     {
-        if (cue != null)
+        if (cue != null && cue.HasClips)
             cue.PlayAt(transform.position);
     }
 

@@ -26,9 +26,9 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private string _attackTrigger = "Attack";
 
     [Header("Audio")]
-    [SerializeField] private AudioCue _attackSound;
-    [SerializeField] private AudioCue _hitSound;
-    [SerializeField] private AudioCue _missSound;
+    [SerializeField] private SoundCue _attackSound;
+    [SerializeField] private SoundCue _hitSound;
+    [SerializeField] private SoundCue _missSound;
 
     [Header("Debug")]
     [SerializeField] private bool _drawAttackRange = true;
@@ -147,9 +147,9 @@ public class PlayerCombat : MonoBehaviour
         _animator.SetTrigger(_attackTrigger);
     }
 
-    private void PlayAudio(AudioCue cue, Vector3 position)
+    private void PlayAudio(SoundCue cue, Vector3 position)
     {
-        if (cue != null)
+        if (cue != null && cue.HasClips)
             cue.PlayAt(position);
     }
 

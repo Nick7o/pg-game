@@ -36,7 +36,7 @@ public class GoldPickup : MonoBehaviour
     [SerializeField] private Color _goldColor = new(1f, 0.78f, 0.16f, 1f);
 
     [Header("Audio")]
-    [SerializeField] private AudioCue _collectSound;
+    [SerializeField] private SoundCue _collectSound;
 
     private bool _collected;
     private bool _isMagnetized;
@@ -209,7 +209,7 @@ public class GoldPickup : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.AddGold(_amount);
 
-        if (_collectSound != null)
+        if (_collectSound != null && _collectSound.HasClips)
             _collectSound.PlayAt(transform.position);
 
         Destroy(gameObject);

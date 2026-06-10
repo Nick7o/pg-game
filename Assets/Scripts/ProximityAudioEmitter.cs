@@ -10,7 +10,7 @@ public class ProximityAudioEmitter : MonoBehaviour
     [SerializeField] private bool _playLoop = true;
 
     [Header("Random One Shots")]
-    [SerializeField] private AudioCue _randomCue;
+    [SerializeField] private SoundCue _randomSound;
     [SerializeField] private bool _playRandomSounds = true;
     [SerializeField] private Vector2 _randomInterval = new(4f, 9f);
 
@@ -40,13 +40,13 @@ public class ProximityAudioEmitter : MonoBehaviour
 
     private void Update()
     {
-        if (Player.Instance == null)
+        if (!AudioCue.TryGetListenerPosition(out Vector3 listenerPosition))
         {
             StopLoop();
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, Player.Instance.transform.position);
+        float distance = Vector2.Distance(transform.position, listenerPosition);
         float volumeMultiplier = GetVolumeMultiplier(distance);
 
         UpdateLoop(volumeMultiplier);
@@ -72,10 +72,10 @@ public class ProximityAudioEmitter : MonoBehaviour
 
     private void UpdateRandomSounds(float volumeMultiplier)
     {
-        if (!_playRandomSounds || _randomCue == null || volumeMultiplier <= 0f || Time.time < _nextRandomSoundTime)
+        if (!_playRandomSounds || _randomSound == null || !_randomSound.HasClips || volumeMultiplier <= 0f || Time.time < _nextRandomSoundTime)
             return;
 
-        _randomCue.PlayAt(transform.position);
+        _randomSound.PlayAt(transform.position);
         ScheduleNextRandomSound();
     }
 
