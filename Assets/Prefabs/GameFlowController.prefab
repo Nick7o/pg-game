@@ -44,5 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045b21ccd9bbba849ae33c02bddedbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameFlowController
-  winPanel: {fileID: 0}
-  losePanel: {fileID: 0}
+  winPanel: {fileID: 2011078534766005162, guid: 618d83fb579825744bccf3be1c5e7f4f, type: 3}
+  losePanel: {fileID: 6915779699855838461, guid: 26b1c5576f7eaa54d96621587c1b9b7a, type: 3}
+  deathFadePanel: {fileID: 0}
+  playerRespawnPoint: {fileID: 4116522785349304728, guid: d2458961acad8e24998c0c9f892c3d59, type: 3}
+  shipRespawnPoint: {fileID: 5358292724459341441, guid: fea92f041ecd4184795a22584e56e090, type: 3}
+  goldLossPercentage: 1
+  fadeDuration: 8
