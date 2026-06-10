@@ -405,6 +405,11 @@ public class AITilemapPathfinder : MonoBehaviour
         return Mathf.Max(Mathf.Max(cellSize.x, cellSize.y), 0.01f);
     }
 
+    public void SetWalkableTilemaps(Tilemap mainTilemap, Tilemap[] additionalTilemaps)
+    {
+        _walkableTilemap = mainTilemap;
+        _additionalWalkableTilemaps = additionalTilemaps;
+    }
     private sealed class PathNode
     {
         public PathNode(Vector3Int cell, int hCost)
