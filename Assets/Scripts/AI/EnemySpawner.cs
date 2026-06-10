@@ -29,9 +29,6 @@ public class EnemySpawner : MonoBehaviour
 
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
-    // Zmienne do przechowywania referencji do ziemi
-    private Tilemap mainGround;
-    private Tilemap[] additionalGrounds;
     private List<Tilemap> allGroundTilemaps = new List<Tilemap>();
 
     private void Awake()
@@ -80,47 +77,50 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // --- NOWA FUNKCJA: WERYFIKACJA BEZPIECZNEGO GRUNTU ---
-    private bool IsValidSpawnPoint(Vector2 point)
+    
+    private Tilemap GetTilemapAtPosition(Vector2 point)
     {
-        if (allGroundTilemaps.Count == 0) return false;
+        if (allGroundTilemaps.Count == 0) return null;
 
-        // Przeszukujemy po kolei ka¿dy zarejestrowany tilemap
+        // Przeszukujemy po kolei ka¿d¹ wyspê
         foreach (Tilemap tm in allGroundTilemaps)
         {
             if (tm == null) continue;
 
+            // U¿ywamy siatki TEJ KONKRETNEJ mapy, by sprawdziæ kordynaty
             Vector3Int cellPosition = tm.WorldToCell(point);
 
-            // Jeœli ten konkretny tilemap ma kafelek w tym miejscu, to mamy sukces!
+            // Jeœli ta mapa ma tu kafelek - znaleŸliœmy wyspê, na której stoimy!
             if (tm.HasTile(cellPosition))
             {
-                return true;
+                return tm;
             }
         }
 
-        return false; // Punkt nie wpad³ na ¿adn¹ z wysp
+        return null; // Punkt le¿y w wodzie
     }
 
     private void SpawnEnemy()
     {
         Vector2 validPoint = (Vector2)transform.position;
-        bool foundSafeSpot = false;
+        Tilemap correctIslandTilemap = null;
 
-        // Próbujemy maksymalnie 30 razy wylosowaæ punkt, w którym JEST ziemia
+        // Próbujemy maksymalnie 30 razy wylosowaæ punkt z ziemi¹
         for (int i = 0; i < 30; i++)
         {
             Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
-            if (IsValidSpawnPoint(randomPoint))
+
+            correctIslandTilemap = GetTilemapAtPosition(randomPoint);
+
+            if (correctIslandTilemap != null)
             {
                 validPoint = randomPoint;
-                foundSafeSpot = true;
-                break;
+                break; // ZnaleŸliœmy bezpieczny punkt i wiemy, jaka to wyspa!
             }
         }
 
-        // Jeœli po 30 próbach nadal losujemy wodê (np. spawner le¿y w oceanie), przerywamy!
-        if (!foundSafeSpot)
+        // Jeœli po 30 próbach mamy null (brak l¹du)
+        if (correctIslandTilemap == null)
         {
             Debug.LogWarning("Spawner nie zrespi³ szkieleta, bo nie znalaz³ wokó³ siebie l¹du! SprawdŸ po³o¿enie spawnera.");
             return;
@@ -129,9 +129,11 @@ public class EnemySpawner : MonoBehaviour
         GameObject newEnemy = Instantiate(enemyPrefab, validPoint, Quaternion.identity);
 
         AITilemapPathfinder pathfinder = newEnemy.GetComponent<AITilemapPathfinder>();
-        if (pathfinder != null && mainGround != null)
+        if (pathfinder != null)
         {
-            pathfinder.SetWalkableTilemaps(mainGround, additionalGrounds);
+            // GENIALNY SKRÓT: Dajemy szkieletowi TYLKO mapê wyspy, na której stoi.
+            // Pust¹ tablicê (new Tilemap[0]) dajemy jako dodatkowe wyspy, bo ich nie potrzebuje.
+            pathfinder.SetWalkableTilemaps(correctIslandTilemap, new Tilemap[0]);
         }
 
         spawnedEnemies.Add(newEnemy);
