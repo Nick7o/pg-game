@@ -156,13 +156,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e62087405cb1ca459d400e6bdd03eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTreasureHunter
-  startingIslands:
+  allAvailableIslands:
+  - {fileID: 11400000, guid: 24e71e415733c9a4882fbbc5c9167130, type: 2}
+  - {fileID: 11400000, guid: 7cf5e5076f996b7408ced2a07a7aa5ca, type: 2}
   - {fileID: 11400000, guid: c9f9bd2143063a14899436adba4d7709, type: 2}
   - {fileID: 11400000, guid: b83efac1da253704bbb84a3e0219b16b, type: 2}
-  - {fileID: 11400000, guid: 7cf5e5076f996b7408ced2a07a7aa5ca, type: 2}
   - {fileID: 11400000, guid: c7f7b0fa0546c7b4cbd4d348fbde3ecc, type: 2}
   - {fileID: 11400000, guid: 642f63415a86ffb4e900fe35a8f1abe7, type: 2}
-  - {fileID: 11400000, guid: 24e71e415733c9a4882fbbc5c9167130, type: 2}
+  mapsToDrawAtOnce: 3
   myMaps: []
   dirtDigSound: {fileID: 0}
   treasureHitSound: {fileID: 0}

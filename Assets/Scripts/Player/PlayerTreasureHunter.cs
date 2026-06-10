@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerTreasureHunter : MonoBehaviour
 {
-    [Header("Mapy na start (do testów)")]
-    public List<IslandData> startingIslands; 
+    [Header("Baza Danych Map")]
+    [Tooltip("Wrzuć tutaj WSZYSTKIE pliki IslandData, jakie masz w grze")]
+    public List<IslandData> allAvailableIslands; 
+    public int mapsToDrawAtOnce = 3; 
 
     [HideInInspector]
     public List<ActiveTreasureMap> myMaps = new List<ActiveTreasureMap>();
@@ -24,11 +26,7 @@ public class PlayerTreasureHunter : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        // Generujemy mapy - skrypt sam znajdzie odpowiednie kafelki wysp
-        foreach (var island in startingIslands)
-        {
-            myMaps.Add(new ActiveTreasureMap(island));
-        }
+        DrawNewMaps();
     }
 
     void Update()
@@ -37,6 +35,36 @@ public class PlayerTreasureHunter : MonoBehaviour
         {
             StartCoroutine(DiggingRoutine());
         }
+    }
+
+    private void DrawNewMaps()
+    {
+        if (allAvailableIslands.Count == 0)
+        {
+            Debug.LogWarning("Baza wysp jest pusta! Dodaj pliki IslandData w Inspektorze gracza.");
+            return;
+        }
+
+        myMaps.Clear();
+        
+        // Tworzymy tymczasową pulę, żeby wylosować unikalne mapy (bez powtórek)
+        List<IslandData> availablePool = new List<IslandData>(allAvailableIslands);
+
+        for (int i = 0; i < mapsToDrawAtOnce; i++)
+        {
+            // Zabezpieczenie: jeśli chcemy wylosować 3, a w bazie są np. tylko 2 wyspy
+            if (availablePool.Count == 0) break; 
+
+            int randomIndex = Random.Range(0, availablePool.Count);
+            IslandData chosenIsland = availablePool[randomIndex];
+            
+            myMaps.Add(new ActiveTreasureMap(chosenIsland));
+            
+            // Usuwamy wylosowaną wyspę z tymczasowej puli, żeby jej nie powtórzyć w tym rzucie
+            availablePool.RemoveAt(randomIndex); 
+        }
+
+        Debug.Log($"[TreasureSystem] Wylosowano {myMaps.Count} nowych map!");
     }
 
     private IEnumerator DiggingRoutine()
@@ -72,7 +100,10 @@ public class PlayerTreasureHunter : MonoBehaviour
                 // KLUCZOWE: Sprawdzamy pozycję gracza na siatce TEJ KONKRETNEJ wyspy
                 Vector3Int playerCell = currentMap.islandTilemap.WorldToCell(transform.position);
 
-                if (playerCell == currentMap.treasureTilePosition)
+                int distanceX = Mathf.Abs(playerCell.x - currentMap.treasureTilePosition.x);
+                int distanceY = Mathf.Abs(playerCell.y - currentMap.treasureTilePosition.y);
+                
+                if (distanceX <= 1 && distanceY <= 1)
                 {
 
                     if (treasureHitSound != null)
@@ -89,7 +120,14 @@ public class PlayerTreasureHunter : MonoBehaviour
 
                     Debug.Log($"[Skarb] Znalazłeś skarb na wyspie {currentMap.island.islandGameObjectName}!");
                     
+                    
                     myMaps.RemoveAt(i);
+
+                    if (myMaps.Count == 0)
+                    {
+                        Debug.Log("Znalazłeś wszystkie skarby! Dostajesz nowe mapy.");
+                        DrawNewMaps();
+                    }
                     
                     if (UIManager.Instance != null)
                     {

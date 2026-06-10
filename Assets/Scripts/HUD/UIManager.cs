@@ -40,13 +40,13 @@ public class UIManager : MonoBehaviour
         if (isMapOpen && player.myMaps.Count > 0)
         {
             // Strzałka w prawo
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 currentMapIndex = (currentMapIndex + 1) % player.myMaps.Count;
                 RefreshMapDisplay();
             }
             // Strzałka w lewo
-            else if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+            else if (Keyboard.current.qKey.wasPressedThisFrame)
             {
                 currentMapIndex--;
                 if (currentMapIndex < 0) currentMapIndex = player.myMaps.Count - 1;
