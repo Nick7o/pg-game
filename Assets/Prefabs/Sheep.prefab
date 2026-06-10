@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 3920917211967384168}
   - component: {fileID: 8335432151784664993}
   - component: {fileID: 8162063307319249343}
+  - component: {fileID: -7065454014948219818}
   m_Layer: 7
   m_Name: Sheep
   m_TagString: Untagged
@@ -272,6 +273,11 @@ MonoBehaviour:
   _pathRefreshInterval: 0.25
   _pathDestinationMoveThreshold: 0.35
   _waypointReachedDistance: 0.08
+  _recalculateWhenStuck: 1
+  _stuckCheckInterval: 0.2
+  _stuckMoveDistanceThreshold: 0.025
+  _stuckTimeToRecalculate: 0.55
+  _blockedPathRetryDelay: 0.1
   _canPatrol: 1
   _patrolRadius: 4
   _patrolPointReachedDistance: 0.15
@@ -338,3 +344,23 @@ MonoBehaviour:
   _rb: {fileID: 4206456591128511671}
   _knockbackDistance: 0.22
   _knockbackDuration: 0.07
+--- !u!114 &-7065454014948219818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8998709105121761681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4157db9b94644a9dbdd12e850c7ae725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoldDropper
+  _dropGold: 1
+  _dropChance: 1
+  _minGold: 1
+  _maxGold: 2
+  _minPickups: 1
+  _maxPickups: 3
+  _scatterRadius: 0.5
+  _goldPickupPrefab: {fileID: 2513448101188729136, guid: 895ffc9e156ea194f89a402ec2203b3c, type: 3}

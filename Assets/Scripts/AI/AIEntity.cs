@@ -149,6 +149,8 @@ public class AIEntity : MonoBehaviour
     public bool CanAttack => _canAttack;
     public float MaxHealth => _maxHealth;
 
+    public event System.Action<AIEntity> Died;
+
     public float Health
     {
         get => _health;
@@ -315,6 +317,7 @@ public class AIEntity : MonoBehaviour
         ClearPath();
         SetState(AIEntityState.Dead);
         UpdateMovementAnimation(0f);
+        Died?.Invoke(this);
 
         if (_destroyOnDeath)
             Destroy(gameObject, _destroyDelay);
