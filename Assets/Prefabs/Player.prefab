@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 1660703500870238869}
   - component: {fileID: 7077238126323405423}
   - component: {fileID: 6117841215892895890}
-  m_Layer: 0
+  - component: {fileID: 6204474903261914665}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +143,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018eac67b6d1e9a48a2f4c57bb0da792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  _startHealth: 100
+  _hurtSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _healSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
 --- !u!114 &6117841215892895890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,14 +170,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e62087405cb1ca459d400e6bdd03eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTreasureHunter
-  startingIslands:
+  allAvailableIslands:
+  - {fileID: 11400000, guid: 24e71e415733c9a4882fbbc5c9167130, type: 2}
+  - {fileID: 11400000, guid: 7cf5e5076f996b7408ced2a07a7aa5ca, type: 2}
   - {fileID: 11400000, guid: c9f9bd2143063a14899436adba4d7709, type: 2}
   - {fileID: 11400000, guid: b83efac1da253704bbb84a3e0219b16b, type: 2}
-  - {fileID: 11400000, guid: 7cf5e5076f996b7408ced2a07a7aa5ca, type: 2}
   - {fileID: 11400000, guid: c7f7b0fa0546c7b4cbd4d348fbde3ecc, type: 2}
   - {fileID: 11400000, guid: 642f63415a86ffb4e900fe35a8f1abe7, type: 2}
-  - {fileID: 11400000, guid: 24e71e415733c9a4882fbbc5c9167130, type: 2}
+  mapsToDrawAtOnce: 3
   myMaps: []
+  dirtDigSound: {fileID: 0}
+  treasureHitSound: {fileID: 0}
+  dirtDigSoundCue:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  treasureHitSoundCue:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  anim: {fileID: 1021467329227053528}
+--- !u!114 &6204474903261914665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458239178759298243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6c8a7db3e04e5c9fc4bfc9928707e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+  _attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _attackDamage: 25
+  _attackCooldown: 0.45
+  _attackHitDelay: 0.1
+  _attackRange: 0.5
+  _attackRadius: 0.9
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _animator: {fileID: 1021467329227053528}
+  _attackTrigger: Attack
+  _attackSound:
+    _clips:
+    - {fileID: 8300000, guid: e4b43489440e07047868c138711cd69c, type: 3}
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _hitSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _missSound:
+    _clips: []
+    _volume: 1
+    _pitchRange: {x: 0.95, y: 1.05}
+    _spatial: 0
+    _minDistance: 1
+    _maxDistance: 12
+  _drawAttackRange: 1
 --- !u!1 &2485906137243266341
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +253,7 @@ GameObject:
   - component: {fileID: 6915519298076559807}
   - component: {fileID: 10573121616852246}
   - component: {fileID: 1532469293018649459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Interaction Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +324,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 1.5
 --- !u!1 &3688026923532142541
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +337,7 @@ GameObject:
   - component: {fileID: 1230248767242637052}
   - component: {fileID: 1021467329227053528}
   - component: {fileID: 4102007107236271028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pawn_Idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9158654822285582380}
   - component: {fileID: 3104284927460296684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

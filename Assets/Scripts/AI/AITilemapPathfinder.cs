@@ -84,6 +84,9 @@ public class AITilemapPathfinder : MonoBehaviour
                 if (IsDiagonalMove(currentNode.Cell, neighbourCell) && IsCornerCutBlocked(currentNode.Cell, neighbourCell))
                     continue;
 
+                if (IsMovementBlocked(GetCellCenterWorld(currentNode.Cell), GetCellCenterWorld(neighbourCell)))
+                    continue;
+
                 PathNode neighbourNode = GetOrCreateNode(neighbourCell, targetCell, nodes);
                 int tentativeGCost = currentNode.GCost + GetMovementCost(currentNode.Cell, neighbourCell);
 
@@ -151,6 +154,40 @@ public class AITilemapPathfinder : MonoBehaviour
             return !_requireWalkableTile && !IsObstacleAt(worldPosition);
 
         return IsCellWalkable(navigationTilemap.WorldToCell(worldPosition));
+    }
+
+    public bool IsMovementBlocked(Vector2 fromWorldPosition, Vector2 toWorldPosition)
+    {
+        if (_obstacleMask.value == 0)
+            return false;
+
+        Vector2 direction = toWorldPosition - fromWorldPosition;
+        float distance = direction.magnitude;
+
+        if (distance <= Mathf.Epsilon)
+            return IsObstacleAt(toWorldPosition);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(toWorldPosition, _obstacleProbeRadius, _obstacleMask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (!IsOwnCollider(hits[i]))
+                return true;
+        }
+
+        RaycastHit2D[] castHits = Physics2D.CircleCastAll(
+            fromWorldPosition,
+            _obstacleProbeRadius,
+            direction.normalized,
+            distance,
+            _obstacleMask);
+
+        for (int i = 0; i < castHits.Length; i++)
+        {
+            if (!IsOwnCollider(castHits[i].collider))
+                return true;
+        }
+
+        return false;
     }
 
     public Vector2 GetCellCenterWorld(Vector3Int cell)
@@ -368,6 +405,11 @@ public class AITilemapPathfinder : MonoBehaviour
         return Mathf.Max(Mathf.Max(cellSize.x, cellSize.y), 0.01f);
     }
 
+    public void SetWalkableTilemaps(Tilemap mainTilemap, Tilemap[] additionalTilemaps)
+    {
+        _walkableTilemap = mainTilemap;
+        _additionalWalkableTilemaps = additionalTilemaps;
+    }
     private sealed class PathNode
     {
         public PathNode(Vector3Int cell, int hCost)

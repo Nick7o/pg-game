@@ -364,7 +364,8 @@ public class HangmanManager : MonoBehaviour
         if (finalAttempt == targetNoSpaces)
         {
             Debug.Log("WYGRANA! Prawid³owe has³o!");
-            signatureText.color = boughtLetterColor; 
+            signatureText.color = boughtLetterColor;
+            if (GameFlowController.Instance != null) GameFlowController.Instance.TriggerWin();
         }
         else
         {

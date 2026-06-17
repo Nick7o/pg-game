@@ -19,7 +19,12 @@ public class Player : MonoBehaviour
     private InteractionController _interactionController;
     private Ship _ship;
     private CinemachineCamera _camera;
+    private HitFeedback _hitFeedback;
     private PlayerState _currentState;
+
+    [Header("Audio")]
+    [SerializeField] private SoundCue _hurtSound;
+    [SerializeField] private SoundCue _healSound;
 
     public static Player Instance => _instance;
 
@@ -28,6 +33,8 @@ public class Player : MonoBehaviour
     public Ship Ship => _ship;
     public CinemachineCamera Camera => _camera;
     public PlayerState CurrentState => _currentState;
+
+    private bool _isDead = false;
 
     public float Health
     {
@@ -52,9 +59,48 @@ public class Player : MonoBehaviour
         _controller = GetComponent<PlayerController2D>();
         _interactionController = GetComponentInChildren<InteractionController>();
         _camera = GetComponentInChildren<CinemachineCamera>();
+        _hitFeedback = GetComponentInChildren<HitFeedback>();
+
+        if (_hitFeedback == null)
+            _hitFeedback = gameObject.AddComponent<HitFeedback>();
+
         _ship = GameObject.FindAnyObjectByType<Ship>();
 
         SetState(PlayerState.Player);
+    }
+
+    public void TakeDamage(float damage, Transform attacker = null)
+    {
+        if (damage <= 0f || _isDead)
+            return;
+
+        if (_hitFeedback != null)
+        {
+            Vector2 sourcePosition = attacker != null ? attacker.position : transform.position;
+            _hitFeedback.Play(sourcePosition);
+        }
+
+        if (_hurtSound != null && _hurtSound.HasClips)
+            _hurtSound.PlayAt(transform.position);
+
+        Health -= damage;
+
+        if (Health <= 0f)
+        {
+            _isDead = true;
+            GameFlowController.Instance.TriggerPlayerDeath();
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        if (amount <= 0f)
+            return;
+
+        if (_healSound != null && _healSound.HasClips)
+            _healSound.PlayAt(transform.position);
+
+        Health += amount;
     }
 
     public void SetState(PlayerState state)
@@ -76,5 +122,10 @@ public class Player : MonoBehaviour
         gameObject.SetActive(state == PlayerState.Player);
 
         _currentState = state;
+    }
+
+    public void ResetDeathState()
+    {
+        _isDead = false;
     }
 }
